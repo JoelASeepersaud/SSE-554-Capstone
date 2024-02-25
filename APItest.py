@@ -18,7 +18,7 @@ stock = 'AAPL'
 testRequest = client.get_aggs(ticker = stock, 
                               multiplier = 1,
                               timespan = 'day',
-                              from_ = '2022-09-01',
+                              from_ = '2023-12-01',
                               to = '2100-01-01',
                               limit = 10)
 
