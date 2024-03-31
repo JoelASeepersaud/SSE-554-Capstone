@@ -1,8 +1,9 @@
 import tkinter as tk
 import ttkbootstrap as ttk
 
-configurations = {'date_from': '',
-                 'date_to': '',}
+configurations =    {'date': '',
+                    'volume_min': -1,
+                    }
 
 #create options display
 def create_options(parent, width, height):
@@ -27,14 +28,11 @@ def create_options(parent, width, height):
     option_frame.columnconfigure((0,1,2,3,4,5,6,7), weight = 1, uniform = 'a')
     option_frame.pack(expand = True, fill = 'both', padx = w*.065)
 
-    date_from_frame = settingFrame(option_frame, 'Date From', 'date_from', configurations)
+    date_from_frame = SettingFrame(option_frame, 'Date', 'date', configurations)
     date_from_frame.rowconfigure(0, weight = 1)
 
-    date_from_frame = settingFrame(option_frame, 'Date To', 'date_to', configurations)
-    date_from_frame.rowconfigure(1, weight = 1)
 
-
-class settingFrame(tk.Frame):
+class SettingFrame(tk.Frame):
 
     #init
     def __init__(self, parent, setting_name, setting, configurations):
