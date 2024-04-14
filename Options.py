@@ -28,11 +28,23 @@ def create_options(parent, width, height):
     option_frame.columnconfigure((0,1,2,3,4,5,6,7), weight = 1, uniform = 'a')
     option_frame.pack(expand = True, fill = 'both', padx = w*.065)
 
-    date_from_frame = SettingFrame(option_frame, 'Date', 'date', configurations)
-    date_from_frame.rowconfigure(0, weight = 1)
+    date_from_frame = OptionFrame(option_frame, 'Date', 'date', configurations)
+    option_row = OptionRow(option_frame, date_from_frame)
+    option_row.create_line()
+    option_row.rowconfigure(0, weight = 1)
 
+class OptionRow(tk.Frame):
+    def __init__(self, parent, option_frame):
+        super().__init__(master = parent)
+        self.configure(bg = win_color)  
+        option_frame.pack(expand = True, fill = 'both', padx = w*.065)
 
-class SettingFrame(tk.Frame):
+    def create_line(self):
+        frame = tk.Frame(self, height = 2)
+        frame.configure(bg=top_bar_color)
+        frame.pack(fill = 'both')
+
+class OptionFrame(tk.Frame):
 
     #init
     def __init__(self, parent, setting_name, setting, configurations):
@@ -53,7 +65,7 @@ class SettingFrame(tk.Frame):
         entry_setting.grid(row = 0, column = 5, columnspan = 2, sticky = 'w')
 
         submit_button = tk.Button(master = self, text = 'Submit', command = lambda :  self.submit_date())
-        submit_button.configure(bg = win_color, fg = 'white')
+        submit_button.configure(bg = win_color, font = "Calibri 15", activebackground = buttonOn_color, borderwidth=1, relief ='solid')
         submit_button.grid(row = 0, column = 7, columnspan = 2, sticky = 'w')
 
     def submit_date(self):

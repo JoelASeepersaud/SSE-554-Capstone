@@ -3,9 +3,9 @@ import ttkbootstrap as ttk
 from Market import create_market
 from Watchlist import create_watchlist
 from Options import create_options, configurations
-from dataHandle import cleanDataSingle
+from DataHandle import cleanDataSingle
 from polygon import RESTClient
-from polygonAPIkey import polygonAPIkey
+from PolygonAPIkey import polygonAPIkey
 import pandas as pd
 
 client = RESTClient(polygonAPIkey)
