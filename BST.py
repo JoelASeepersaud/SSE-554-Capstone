@@ -1,5 +1,5 @@
 import Node
-from dataHandle import cleanDataAll, client
+from DataHandle import cleanDataAll, client
 import pandas as pd
 
 class TreeNode(Node): #TreeNode class that currently only will sort alphabetically
