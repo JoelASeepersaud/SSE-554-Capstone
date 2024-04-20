@@ -3,9 +3,8 @@
 from polygon import RESTClient
 import datetime as dt
 import pandas as pd
-
 #api key denoted in polygonAPIkey.py
-from polygonAPIkey import polygonAPIkey
+from PolygonAPIkey import polygonAPIkey
 
 # create client with API key 
 client = RESTClient(polygonAPIkey)
@@ -18,15 +17,26 @@ def cleanDataSingle(dataFrame):
     dataFrame = dataFrame.set_index('Date')
     dataFrame.drop(columns = ['vwap', 'otc', 'timestamp', 'transactions'], axis=1, inplace=True)
     return dataFrame
+    """cleanDataSingle(pd.DataFrame(client.get_aggs("AAPL",
+        1,
+        "minute",
+        "2022-01-01",
+        "2023-02-03",
+        limit=10,)))"""
+
+def cleanDataAll(dataFrame, volumeMin):
+    for x in dataFrame.index:
+        if dataFrame.loc[x, "volume"] <  volumeMin:
+            dataFrame.drop(x, inplace = True)
+    dataFrame.drop(columns = ['vwap', 'otc', 'timestamp', 'transactions'], axis=1, inplace=True)
+    dataFrame.reset_index(drop=True, inplace=True)
+    """
+    test = pd.DataFrame(client.get_grouped_daily_aggs("2023-03-16"))
+    cleanDataAll(test, 10000)
+    print (test)
+    """
 
 """
-print(cleanDataSingle(client.get_aggs("AAPL",
-    1,
-    "minute",
-    "2022-01-01",
-    "2023-02-03",
-    limit=10,)))
-
 Examples:
 
 Single Stock:
@@ -38,4 +48,5 @@ https://github.com/polygon-io/client-python/blob/master/examples/rest/stocks-dai
 Get All Stocks:
 https://github.com/polygon-io/client-python/blob/master/examples/rest/stocks-grouped_daily_bars.py
 """
+
 

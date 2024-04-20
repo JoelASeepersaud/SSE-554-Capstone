@@ -1,6 +1,6 @@
 import tkinter as tk
 import ttkbootstrap as ttk
-        
+       
 #create market display
 def create_market(parent, width, height):
     global top_bar_color
