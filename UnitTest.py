@@ -2,9 +2,31 @@ import unittest
 from BST import BST, getDataToBST
 from Options import configurations
 
-#--------------------------------------------------------------------------------------------------b
+#--------------------------------------------------------------------------------------------------
 
-#Unit 10 : Trees Test Cases
+#Unit 8 : Queue Test Cases
+class TestQueue(unittest.TestCase): 
+    def setUp(self):
+        pass
+
+    def testQueueCreation(self):
+        pass
+
+    def testQueuePush(self):
+        pass
+
+    def testQueuePop(self):
+        pass
+
+    def testQueuePeek(self):
+        pass
+
+    def testQueueisEmpty(self):
+        pass
+
+#--------------------------------------------------------------------------------------------------
+
+#Unit 10 : Tree Test Cases
 class TestBST(unittest.TestCase): 
     def setUp(self):
         self.unitTestBST = getDataToBST(configurations, 'alphabetical')
