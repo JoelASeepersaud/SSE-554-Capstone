@@ -32,11 +32,3 @@ class Queue():
         if self.is_empty: raise KeyError("The Queue is empty!")
         return self.head        
 
-
-
-
-def main():#Just for testing
-    pass
-
-if __name__ == '__main__':
-    main()

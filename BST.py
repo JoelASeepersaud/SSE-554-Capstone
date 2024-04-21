@@ -1,60 +1,68 @@
-import Node
+from Node import Node
 from DataHandle import cleanDataAll, client
 import pandas as pd
+from Options import configurations
 
-class TreeNode(Node): #TreeNode class that currently only will sort alphabetically
-    def __init__(self, dataFrame, row, sortType):
+#Unit 10 : Trees
+#Tests located in UnitTest.py
+
+#TreeNode:  Class that is used by the BST class and inherit from the Node class
+class TreeNode(Node):                
+    def __init__(self, dataFrame, row):
         super().__init__(dataFrame, row)
         self.left = None
         self.right = None
+
+#--------------------------------------------------------------------------------------------------
+
+#BST:       Class that uses the TreeNode class to create a binary search tree
+class BST:
+    def __init__(self, root, sortType): 
+        self.root = root
         self.sortType = sortType
 
-    def insert(self, node):
-        if not type(node) is TreeNode:
-            raise TypeError("Only TreeNodes are allowed")
-        
-        if self.sortType == 'alphabetical':
-            if node.ticker < self.ticker:
-                if self.left:
-                    self.left.insert(node)
+    def insert(self, node): 
+        def insertNodeAlph(root, node):
+            if node.ticker < root.ticker:
+                if root.left:
+                    insertNodeAlph(root.left, node)
                 else:
-                    self.left = node
+                    root.left = node
             else:
-                if self.right:
-                    self.right.insert(node)
+                if root.right:
+                    insertNodeAlph(root.right, node)
                 else:
-                    self.right = node
+                    root.right = node
 
-def printInorder(root: TreeNode):
-    if root is None:
-        return
-    printInorder(root.left)
-    print(root.ticker)
-    printInorder(root.right)       
-
-def getDataToBST(configurations, sortType):
+        if not type(node) is TreeNode: raise TypeError("Only TreeNodes are allowed")
+        if self.sortType == 'alphabetical' and node.ticker.isalpha():
+            insertNodeAlph(self.root, node)
+        
+    def inorderTrav(self):
+        def Inorder(root):
+            if root is None: return
+            Inorder(root.left)
+            returnList.append(root.ticker)
+            Inorder(root.right) 
+        returnList = list()
+        Inorder(self.root)
+        return returnList
+    
+    def __str__(self):
+        return str(self.inorderTrav())
+    
+#--------------------------------------------------------------------------------------------------
+#Helper:    Function that moves data from API to the binary search tree    
+def getDataToBST(configurations = configurations, sortType = None):
     if configurations['date'] == '':
         configurations['date'] = '2023-01-03'
 
     if configurations['volume_min'] == -1:
-        configurations['volume_min'] = 100000
-
+        configurations['volume_min'] = 10000000
     data = pd.DataFrame(client.get_grouped_daily_aggs(configurations['date']))
     cleanDataAll(data, configurations['volume_min'])
-    root = TreeNode(data, 0, sortType)
-
+    root = TreeNode(data, 0)
+    bst = BST(root, sortType)
     for x in range(1, len(data.index), 1):
-        root.insert(TreeNode(data, x, sortType))
-
-    return root
-
-def main():#Just for testing
-    configurations ={'date': '',
-                    'volume_min': -1,
-                    }
-    root = getDataToBST(configurations, 'alphabetical')
-
-    printInorder(root)
-
-if __name__ == '__main__':
-    main()
+        bst.insert(TreeNode(data, x))
+    return bst
