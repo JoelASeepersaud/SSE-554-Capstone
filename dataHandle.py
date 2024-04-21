@@ -4,10 +4,10 @@ from polygon import RESTClient
 import datetime as dt
 import pandas as pd
 #api key denoted in polygonAPIkey.py
-from PolygonAPIkey import polygonAPIkey
+from Configurations import getPolygonAPIkey
 
 # create client with API key 
-client = RESTClient(polygonAPIkey)
+client = RESTClient(getPolygonAPIkey())
 
 def cleanDataSingle(dataFrame):
     #Convert UNIX timestamps to milliseconds

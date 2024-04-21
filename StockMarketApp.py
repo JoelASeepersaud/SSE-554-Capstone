@@ -2,13 +2,13 @@ import tkinter as tk
 import ttkbootstrap as ttk
 from Market import create_market
 from Watchlist import create_watchlist
-from Options import create_options, configurations
+from Options import create_options
 from DataHandle import cleanDataSingle
 from polygon import RESTClient
-from PolygonAPIkey import polygonAPIkey
+from Configurations import getPolygonAPIkey
 import pandas as pd
 
-client = RESTClient(polygonAPIkey)
+client = RESTClient(getPolygonAPIkey())
 
 
 def search_stock():

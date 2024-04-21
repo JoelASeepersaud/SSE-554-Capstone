@@ -1,7 +1,7 @@
 from Node import Node
 from DataHandle import cleanDataAll, client
 import pandas as pd
-from Options import configurations
+from Options import getConfigurations
 
 #Unit 10 : Trees
 #Tests located in UnitTest.py
@@ -53,7 +53,7 @@ class BST:
     
 #--------------------------------------------------------------------------------------------------
 #Helper:    Function that moves data from API to the binary search tree    
-def getDataToBST(configurations = configurations, sortType = None):
+def getDataToBST(configurations = getConfigurations(), sortType = None):
     if configurations['date'] == '':
         configurations['date'] = '2023-01-03'
 

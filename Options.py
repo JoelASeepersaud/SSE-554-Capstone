@@ -1,9 +1,7 @@
 import tkinter as tk
 import ttkbootstrap as ttk
+from Configurations import getConfigurations, setConfigurations
 
-configurations =    {'date': '',
-                    'volume_min': -1,
-                    }
 
 #create options display
 def create_options(parent, width, height):
@@ -28,7 +26,7 @@ def create_options(parent, width, height):
     option_frame.columnconfigure((0,1,2,3,4,5,6,7), weight = 1, uniform = 'a')
     option_frame.pack(expand = True, fill = 'both', padx = w*.065)
 
-    date_from_frame = OptionFrame(option_frame, 'Date', 'date', configurations)
+    date_from_frame = OptionFrame(option_frame, 'Date', 'date', getConfigurations())
     option_row = OptionRow(option_frame, date_from_frame)
     option_row.create_line()
     option_row.rowconfigure(0, weight = 1)
@@ -69,5 +67,5 @@ class OptionFrame(tk.Frame):
         submit_button.grid(row = 0, column = 7, columnspan = 2, sticky = 'w')
 
     def submit_date(self):
-        configurations[self.setting] = self.setting_value.get()
-        print(configurations[self.setting])
+        setConfigurations(self.setting, self.setting_value.get())
+

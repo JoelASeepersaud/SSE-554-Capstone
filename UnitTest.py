@@ -1,6 +1,6 @@
 import unittest
 from BST import BST, getDataToBST
-from Options import configurations
+from Options import getConfigurations
 
 #--------------------------------------------------------------------------------------------------
 
@@ -29,10 +29,10 @@ class TestQueue(unittest.TestCase):
 #Unit 10 : Tree Test Cases
 class TestBST(unittest.TestCase): 
     def setUp(self):
-        self.unitTestBST = getDataToBST(configurations, 'alphabetical')
+        self.unitTestBST = getDataToBST(getConfigurations(), 'alphabetical')
 
     def testBSTCreation(self):
-        testBST = getDataToBST(configurations, 'alphabetical')
+        testBST = getDataToBST(getConfigurations(), 'alphabetical')
         self.assertTrue(isinstance(testBST, BST))
         self.assertIsNotNone(testBST.root)
 
