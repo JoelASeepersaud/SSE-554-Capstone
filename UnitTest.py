@@ -1,6 +1,7 @@
 import unittest
-from BST import BST, getDataToBST
+from BST import BST, TreeNode, getDataToBST
 from Options import getConfigurations
+import pandas as pd
 
 #--------------------------------------------------------------------------------------------------
 
@@ -51,21 +52,26 @@ class TestQueue(unittest.TestCase):
 #Unit 10 : Tree Test Cases
 class TestBST(unittest.TestCase): 
     def setUp(self):
-        self.unitTestBST = getDataToBST(getConfigurations(), 'alphabetical')
+        self.testBST = getDataToBST(getConfigurations(), 'alphabetical')
+        self.emptyDf = pd.DataFrame()
 
     def testBSTCreation(self):
-        testBST = getDataToBST(getConfigurations(), 'alphabetical')
-        self.assertTrue(isinstance(testBST, BST))
-        self.assertIsNotNone(testBST.root)
+        self.assertTrue(isinstance(self.testBST, BST))
+        self.assertIsNotNone(self.testBST.root)
 
     def testBSTInsert(self):
-        pass
+        testNode = TreeNode(self.emptyDf, None)
+        self.testBST.insert(testNode)
+        self.assertIn(testNode, self.testBST)
 
     def testBSTTrav(self):
-        pass
+        lyst = self.testBST.inorderTrav()
+        self.assertTrue(lyst[0] <= lyst[1])
+        self.assertTrue(lyst[2] <= lyst[3])
 
     def testBSTStr(self):
-        pass
+        stringBST = str(self.testBST)
+        self.assertIsInstance(stringBST, str)
 
 #--------------------------------------------------------------------------------------------------
 

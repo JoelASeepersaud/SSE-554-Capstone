@@ -3,7 +3,6 @@
 from polygon import RESTClient
 import datetime as dt
 import pandas as pd
-#api key denoted in polygonAPIkey.py
 from Configurations import getPolygonAPIkey
 
 # create client with API key 

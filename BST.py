@@ -51,6 +51,17 @@ class BST:
     def __str__(self):
         return str(self.inorderTrav())
     
+    def __iter__(self):
+        lyst = self.inorderTrav()
+        return iter(lyst)
+
+    def __contains__(self, item):
+        lyst = self.inorderTrav()
+        if item.ticker in lyst:
+            return True
+        return False
+
+    
 #--------------------------------------------------------------------------------------------------
 #Helper:    Function that moves data from API to the binary search tree    
 def getDataToBST(configurations = getConfigurations(), sortType = None):
