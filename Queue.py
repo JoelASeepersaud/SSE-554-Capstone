@@ -4,7 +4,7 @@ from Node import Node
 #Unit 8 : Queues
 #Tests located in UnitTest.py
 
-#QueueNode:  Class that is used by the Queue class and inherit from the Node class
+#QueueNode:  Class that is used by the Queue class and inherits from the Node class
 class QueueNode(Node):
     def __init__(self, dataFrame, row):
         super().init(dataFrame, row)

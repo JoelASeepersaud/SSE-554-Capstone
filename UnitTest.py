@@ -1,7 +1,33 @@
 import unittest
+from Node import createTestNode
 from BST import BST, TreeNode, getDataToBST
 from Options import getConfigurations
 import pandas as pd
+
+#--------------------------------------------------------------------------------------------------
+
+#Unit 4 : Linked List Test Cases
+class TestLinkedList(unittest.TestCase): 
+    def setUp(self):
+        pass
+
+    def testLLCreation(self):
+        pass
+
+    def testLLPush(self):
+        pass
+
+    def testLLisEmpty(self):
+        pass
+
+    def testLLContains(self):
+        pass
+
+    def testLLinsert(Self):
+        pass
+
+    def testLLremove(self):
+        pass
 
 #--------------------------------------------------------------------------------------------------
 
@@ -54,15 +80,17 @@ class TestBST(unittest.TestCase):
     def setUp(self):
         self.testBST = getDataToBST(getConfigurations(), 'alphabetical')
         self.emptyDf = pd.DataFrame()
+        self.testNodeList = createTestNode()
 
     def testBSTCreation(self):
         self.assertTrue(isinstance(self.testBST, BST))
         self.assertIsNotNone(self.testBST.root)
 
     def testBSTInsert(self):
-        testNode = TreeNode(self.emptyDf, None)
-        self.testBST.insert(testNode)
-        self.assertIn(testNode, self.testBST)
+        for item in self.testNodeList:
+            self.testBST.insert(item)
+        for item in self.testNodeList:
+            self.assertIn(item, self.testBST)
 
     def testBSTTrav(self):
         lyst = self.testBST.inorderTrav()

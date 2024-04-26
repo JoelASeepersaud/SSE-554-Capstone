@@ -6,7 +6,7 @@ from Options import getConfigurations
 #Unit 10 : Trees
 #Tests located in UnitTest.py
 
-#TreeNode:  Class that is used by the BST class and inherit from the Node class
+#TreeNode:  Class that is used by the BST class and inherits from the Node class
 class TreeNode(Node):                
     def __init__(self, dataFrame, row):
         super().__init__(dataFrame, row)

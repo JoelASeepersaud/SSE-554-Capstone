@@ -6,7 +6,7 @@ from Options import getConfigurations
 #Unit 7 : Stacks
 #Tests located in UnitTest.py
 
-#StackNode:  Class that is used by the Stack class and inherit from the Node class
+#StackNode:  Class that is used by the Stack class and inherits from the Node class
 class StackNode(Node):
     def __init__(self, dataFrame, row):
         super().__init__(dataFrame, row)
