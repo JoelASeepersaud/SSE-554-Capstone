@@ -5,7 +5,8 @@ class GraphNode(Node):
         super().init(dataFrame, row)
 
 class GraphEdge:
-    def __init__(self):
+    def __init__(self, graphNode1, graphNode2):
+        
         pass
 
 class Graph:

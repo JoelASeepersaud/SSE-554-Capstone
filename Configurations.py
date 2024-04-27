@@ -5,8 +5,8 @@ def getPolygonAPIkey():
     return polygonAPIkey
 
 #Configuration dictionary with getter and setter
-configurations =    {'date': '',
-                    'volume_min': -1,
+configurations =    {'date': '2023-01-03',
+                    'volume_min': 10000000,
                     }
 
 def getConfigurations():

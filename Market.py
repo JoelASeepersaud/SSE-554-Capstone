@@ -1,5 +1,6 @@
 import tkinter as tk
 import ttkbootstrap as ttk
+from DataStructures.BST import getDataToBST
        
 #create market display
 def create_market(parent, width, height):
@@ -52,21 +53,21 @@ def create_market(parent, width, height):
     name_text.configure(bg = win_color, fg = 'white')
     name_text.grid(row = 0, column = 0, columnspan = 4, sticky = 'w')
     
-    price_text = tk.Label(master = info_frame, text = 'Price', font = "Calibri 15")
-    price_text.configure(bg = win_color, fg = 'white')
-    price_text.grid(row = 0, column = 4, sticky = 'e')
+    open_price_text = tk.Label(master = info_frame, text = 'Open Price', font = "Calibri 15")
+    open_price_text.configure(bg = win_color, fg = 'white')
+    open_price_text.grid(row = 0, column = 4, sticky = 'e')
     
-    change_text = tk.Label(master = info_frame, text = 'Change', font = "Calibri 15")
-    change_text.configure(bg = win_color, fg = 'white')
-    change_text.grid(row = 0, column = 5, sticky = 'e')
+    close_price_text = tk.Label(master = info_frame, text = 'Close Price', font = "Calibri 15")
+    close_price_text.configure(bg = win_color, fg = 'white')
+    close_price_text.grid(row = 0, column = 5, sticky = 'e')
     
-    changepercent_text = tk.Label(master = info_frame, text = 'Change %', font = "Calibri 15")
-    changepercent_text.configure(bg = win_color, fg = 'white')
-    changepercent_text.grid(row = 0, column = 6, sticky = 'e')
+    percent_change_text = tk.Label(master = info_frame, text = 'Percent Change', font = "Calibri 15")
+    percent_change_text.configure(bg = win_color, fg = 'white')
+    percent_change_text.grid(row = 0, column = 6, sticky = 'e')
     
-    date_text = tk.Label(master = info_frame, text = 'Date', font = "Calibri 15")
-    date_text.configure(bg = win_color, fg = 'white')
-    date_text.grid(row = 0, column = 7, sticky = 'e')
+    volume_text = tk.Label(master = info_frame, text = 'Volume', font = "Calibri 15")
+    volume_text.configure(bg = win_color, fg = 'white')
+    volume_text.grid(row = 0, column = 7, sticky = 'e')
     
     divider_frame = tk.Frame(master = parent, width = w*.87, height = 4)
     divider_frame.configure(bg = top_bar_color)
@@ -77,7 +78,10 @@ def create_market(parent, width, height):
     display_frame.pack_propagate(False)
     display_frame.pack(side = 'bottom')
     
-    text_list = [('1 S&P500', '2', '1', '50%', '5/2/2024'), ('2 S&P500', '2', '1', '50%', '5/2/2024'), ('3 S&P500', '2', '1', '50%', '5/2/2024'), ('4 S&P500', '2', '1', '50%', '5/2/2024'), ('5 S&P500', '2', '1', '50%', '5/2/2024'), ('6 S&P500', '2', '1', '50%', '5/2/2024'), ('7 S&P500', '2', '1', '50%', '5/2/2024'), ('8 S&P500', '2', '1', '50%', '5/2/2024'), ('9 S&P500', '2', '1', '50%', '5/2/2024'), ('2 S&P500', '2', '1', '50%', '5/2/2024'), ('3 S&P500', '2', '1', '50%', '5/2/2024'), ('4 S&P500', '2', '1', '50%', '5/2/2024'), ('5 S&P500', '2', '1', '50%', '5/2/2024'), ('6 S&P500', '2', '1', '50%', '5/2/2024'), ('7 S&P500', '2', '1', '50%', '5/2/2024'), ('8 S&P500', '2', '1', '50%', '5/2/2024'), ('9 S&P500', '2', '1', '50%', '5/2/2024')]
+    bst = getDataToBST()
+    text_list = list()
+    for item in bst.inorderTrav():
+        text_list.append(item.nodeHandle())
     list_frame = ListFrame(display_frame, text_list, 70)
 
 #create scrollable list

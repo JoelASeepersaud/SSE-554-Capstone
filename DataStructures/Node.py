@@ -9,8 +9,8 @@ class Node(object):
             self.high = dataFrame.loc[row,"high"]
             self.low = dataFrame.loc[row,"low"]
             self.close = dataFrame.loc[row,"close"]
-            self.volume = dataFrame.loc[row,"volume"]
-            self.percentChange = (self.close - self.open)/ self.open
+            self.volume = int(dataFrame.loc[row,"volume"])
+            self.percentChange = round(((self.close - self.open)/ self.open), 2)
 
         else:
             self.ticker = None

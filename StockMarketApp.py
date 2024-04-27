@@ -3,7 +3,7 @@ import ttkbootstrap as ttk
 from Market import create_market
 from Watchlist import create_watchlist
 from Options import create_options
-from dataHandle import cleanDataSingle
+from DataHandle import cleanDataSingle
 from polygon import RESTClient
 from Configurations import getPolygonAPIkey
 import pandas as pd

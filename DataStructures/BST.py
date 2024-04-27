@@ -1,4 +1,4 @@
-from Node import Node
+from DataStructures.Node import Node
 from DataHandle import cleanDataAll, client
 import pandas as pd
 from Options import getConfigurations
@@ -12,6 +12,10 @@ class TreeNode(Node):
         super().__init__(dataFrame, row)
         self.left = None
         self.right = None
+
+    def nodeHandle(self):
+        thisTuple = (self.ticker, self.open, self.close, self.percentChange, self.volume)
+        return thisTuple
 
 #--------------------------------------------------------------------------------------------------
 
@@ -42,14 +46,14 @@ class BST:
         def Inorder(root):
             if root is None: return
             Inorder(root.left)
-            returnList.append(root.ticker)
+            returnList.append(root)
             Inorder(root.right) 
         returnList = list()
         Inorder(self.root)
         return returnList
     
     def __str__(self):
-        return str(self.inorderTrav())
+        raise NotImplementedError()
     
     def __iter__(self):
         lyst = self.inorderTrav()
@@ -64,12 +68,7 @@ class BST:
     
 #--------------------------------------------------------------------------------------------------
 #Helper:    Function that moves data from API to the binary search tree    
-def getDataToBST(configurations = getConfigurations(), sortType = None):
-    if configurations['date'] == '':
-        configurations['date'] = '2023-01-03'
-
-    if configurations['volume_min'] == -1:
-        configurations['volume_min'] = 10000000
+def getDataToBST(configurations = getConfigurations(), sortType = 'alphabetical'):
     data = pd.DataFrame(client.get_grouped_daily_aggs(configurations['date']))
     cleanDataAll(data, configurations['volume_min'])
     root = TreeNode(data, 0)

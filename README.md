@@ -4,23 +4,23 @@ The following are the chapters covered and the respective file that is their imp
 
 All Unit test are located in UnitTest.py
 
-Unit 3: Searching, Sorting, and Complexity Analysis : 
+Unit 3: Searching, Sorting, and Complexity Analysis: 
     Not Complete
 
 Unit 4: Arrays and Linked Structures & Unit 9: Lists:
     LinkedList.py
 
-Unit 7: Stacks
+Unit 7: Stacks:
     Stack.py
 
-Unit 8: Queues
+Unit 8: Queues:
     Queue.py
 
-Unit 10: Trees
+Unit 10: Trees:
     BST.py
 
-Unit 11: Sets and Dictionaries
+Unit 11: Sets and Dictionaries:
     Not Complete
 
-Unit 12: Graphs
+Unit 12: Graphs:
     Not Complete
