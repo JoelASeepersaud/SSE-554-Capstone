@@ -1,7 +1,7 @@
 import tkinter as tk
 import ttkbootstrap as ttk
-from DataStructures.BST import getDataToBST
-       
+from DataStore import alphBST, openBST, closeBST, percentBST, volumeBST
+
 #create market display
 def create_market(parent, width, height):
     global top_bar_color
@@ -25,22 +25,22 @@ def create_market(parent, width, height):
     orderby_text.configure(bg = win_color, fg = 'white')
     
     name_button = tk.Button(master = sorting_frame, text = 'Name', font = "Calibri 15")
-    name_button.configure(bg = win_color, activebackground = buttonOn_color, borderwidth=1, relief ='solid')
+    
                           
-    price_button = tk.Button(master = sorting_frame, text = 'Price', font = "Calibri 15")
-    price_button.configure(bg = win_color, activebackground = buttonOn_color, borderwidth=1, relief ='solid')
+    open_price_button = tk.Button(master = sorting_frame, text = 'Open Price', font = "Calibri 15")
     
-    change_button = tk.Button(master = sorting_frame, text = 'Change', font = "Calibri 15")
-    change_button.configure(bg = win_color, activebackground = buttonOn_color, borderwidth=1, relief ='solid')
+    close_price_button = tk.Button(master = sorting_frame, text = 'Close Price', font = "Calibri 15")
     
-    changepercent_button = tk.Button(master = sorting_frame, text = 'Change %', font = "Calibri 15")    
-    changepercent_button.configure(bg = win_color, activebackground = buttonOn_color, borderwidth=1, relief ='solid')
+    percent_change_button = tk.Button(master = sorting_frame, text = '% Change', font = "Calibri 15")    
+
+    volume_button = tk.Button(master = sorting_frame, text = 'Volume', font = "Calibri 15")    
       
-    orderby_text.place(x = w*.09, y = h*.08)
-    name_button.place(x = w*.18, y = h*.07, width = w*.082, height = h*.058)
-    price_button.place(x = w*.18+w*.082-1, y = h*.07, width = w*.082, height = h*.058)
-    change_button.place(x = w*.18+w*.082*2-2, y = h*.07, width = w*.082, height = h*.058)
-    changepercent_button.place(x = w*.18+w*.082*3-4, y = h*.07, width = w*.082, height = h*.058)
+    orderby_text.place              (x = w*.09, y = h*.08)
+    name_button.place               (x = w*.18, y = h*.07, width = w*.082, height = h*.058)
+    open_price_button.place         (x = w*.18+w*.082-1, y = h*.07, width = w*.082, height = h*.058)
+    close_price_button.place        (x = w*.18+w*.082*2-2, y = h*.07, width = w*.082, height = h*.058)
+    percent_change_button.place     (x = w*.18+w*.082*3-4, y = h*.07, width = w*.082, height = h*.058)
+    volume_button.place             (x = w*.18+w*.082*4-5, y = h*.07, width = w*.082, height = h*.058)
     
     #display information for stock list
     info_frame = tk.Frame(master = parent, width = w*.87)
@@ -80,9 +80,41 @@ def create_market(parent, width, height):
     
     text_list = list()
     list_frame = ListFrame(display_frame, text_list, 70)
-    list_frame.updateData(text_list, 'Name')
+    list_frame.updateData(text_list, 'OpenPrice')
 
+    name_button.configure           (bg = win_color, 
+                                    activebackground = buttonOn_color, 
+                                    borderwidth=1, 
+                                    relief ='solid', 
+                                    command = lambda: list_frame.updateData(text_list, 'Name')
+                                    )
+    open_price_button.configure     (bg = win_color, 
+                                    activebackground = buttonOn_color, 
+                                    borderwidth=1, 
+                                    relief ='solid',  
+                                    command = lambda: list_frame.updateData(text_list, 'OpenPrice')
+                                    )
 
+    close_price_button.configure     (bg = win_color,   
+                                     activebackground = buttonOn_color, 
+                                     borderwidth=1, 
+                                     relief ='solid',
+                                     command = lambda: list_frame.updateData(text_list, 'ClosePrice')
+                                    )
+
+    percent_change_button.configure (bg = win_color,    
+                                    activebackground = buttonOn_color, 
+                                    borderwidth=1, 
+                                    relief ='solid',
+                                    command = lambda: list_frame.updateData(text_list, 'PercentChange')
+                                    )
+    
+    volume_button.configure         (bg = win_color, 
+                                    activebackground = buttonOn_color, 
+                                    borderwidth=1, 
+                                    relief ='solid',
+                                    command = lambda: list_frame.updateData(text_list, 'Volume')
+                                    )
 #create scrollable list
 class ListFrame(tk.Frame):
     
@@ -170,10 +202,45 @@ class ListFrame(tk.Frame):
         return frame
     
     def updateData(self, text_list, sortType):
+        for widget in self.frame.winfo_children():
+            widget.destroy()
+
         if sortType == 'Name':
-            bst = getDataToBST()
             text_list = list()
-            for item in bst.inorderTrav():
+            for item in alphBST.inorderTrav():
                 text_list.append(item.nodeHandle())
-        self.destroy()
-        self = ListFrame(self.parent, text_list, self.item_height)
+        
+        elif sortType == 'OpenPrice':
+            text_list = list()
+            for item in openBST.inorderTrav():
+                text_list.append(item.nodeHandle())
+        
+        elif sortType == 'ClosePrice':
+            text_list = list()
+            for item in closeBST.inorderTrav():
+                text_list.append(item.nodeHandle())
+
+        elif sortType == 'PercentChange':
+            text_list = list()
+            for item in percentBST.inorderTrav():
+                text_list.append(item.nodeHandle())
+
+        elif sortType == 'Volume':
+            text_list = list()
+            for item in volumeBST.inorderTrav():
+                text_list.append(item.nodeHandle())
+
+        else: raise TypeError("Not a vaild sort type")
+
+        for index, item in enumerate(self.text_data):
+            created_item=self.create_item(index, item)
+            created_item.configure(bg = win_color)
+            created_item.pack(expand =True, fill = 'both', pady=4, padx = w*.065)
+            created_line = self.create_line()
+            created_line.pack(expand =True, fill = 'x', padx = w*.065)
+
+        self.text_data = text_list
+        self.item_number = len(text_list)
+        self.list_height = self.item_number * self.item_height
+        self.canvas.configure(scrollregion=(0, 0, w, self.list_height))
+        self.update_size(None)

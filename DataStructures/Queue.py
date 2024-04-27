@@ -1,5 +1,7 @@
-from Node import Node
-
+from DataStructures.Node import Node
+from DataHandle import cleanDataAll, client
+import pandas as pd
+from Options import getConfigurations
 
 #Unit 8 : Queues
 #Tests located in UnitTest.py
@@ -14,6 +16,10 @@ class QueueNode(Node):
 
 #Queue:     Class that uses the QueueNode class to create a linked queue
 class Queue():
+
+    data = pd.DataFrame(client.get_grouped_daily_aggs(getConfigurations()['date']))
+    cleanDataAll(data, getConfigurations()['volume_min'])
+
     def __init__(self):
         self.head, self.tail = None
         self.size = 0
@@ -48,6 +54,9 @@ class Queue():
 
 #--------------------------------------------------------------------------------------------------
 
-#Helper:    Function that moves data to Queue       *Still to be implemented   
+#Helper:    Function that sorts data then moves to Queue
+def sort():
+    pass
+
 def getDataToQueue():
     pass

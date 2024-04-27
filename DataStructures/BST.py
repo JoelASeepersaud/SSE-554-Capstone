@@ -21,6 +21,10 @@ class TreeNode(Node):
 
 #BST:       Class that uses the TreeNode class to create a binary search tree
 class BST:
+
+    data = pd.DataFrame(client.get_grouped_daily_aggs(getConfigurations()['date']))
+    cleanDataAll(data, getConfigurations()['volume_min'])
+
     def __init__(self, root, sortType): 
         self.root = root
         self.sortType = sortType
@@ -38,9 +42,65 @@ class BST:
                 else:
                     root.right = node
 
+        def insertNodeOpen(root, node):
+            if node.open < root.open:
+                if root.left:
+                    insertNodeOpen(root.left, node)
+                else:
+                    root.left = node
+            else:
+                if root.right:
+                    insertNodeOpen(root.right, node)
+                else:
+                    root.right = node
+
+        def insertNodeClose(root, node):
+            if node.close < root.close:
+                if root.left:
+                    insertNodeClose(root.left, node)
+                else:
+                    root.left = node
+            else:
+                if root.right:
+                    insertNodeClose(root.right, node)
+                else:
+                    root.right = node
+        
+        def insertNodePercentChange(root, node):
+            if node.percentChange > root.percentChange:
+                if root.left:
+                    insertNodePercentChange(root.left, node)
+                else:
+                    root.left = node
+            else:
+                if root.right:
+                    insertNodePercentChange(root.right, node)
+                else:
+                    root.right = node
+
+        def insertNodeVolume(root, node):
+            if node.volume < root.volume:
+                if root.left:
+                    insertNodeVolume(root.left, node)
+                else:
+                    root.left = node
+            else:
+                if root.right:
+                    insertNodeVolume(root.right, node)
+                else:
+                    root.right = node
+
         if not type(node) is TreeNode: raise TypeError("Only TreeNodes are allowed")
         if self.sortType == 'alphabetical' and node.ticker.isalpha():
             insertNodeAlph(self.root, node)
+        elif self.sortType == 'open':
+            insertNodeOpen(self.root, node)
+        elif self.sortType == 'close':
+            insertNodeClose(self.root, node)
+        elif self.sortType == 'percent':
+            insertNodePercentChange(self.root, node)
+        elif self.sortType == 'volume':
+            insertNodeVolume(self.root, node)
         
     def inorderTrav(self):
         def Inorder(root):
@@ -53,7 +113,12 @@ class BST:
         return returnList
     
     def __str__(self):
-        raise NotImplementedError()
+        returnSTR = ""
+        lyst = self.inorderTrav()
+        for item in lyst:
+            returnSTR += f"\n{item.ticker}, {item.open}, {item.close}"
+        return returnSTR
+        
     
     def __iter__(self):
         lyst = self.inorderTrav()
@@ -68,11 +133,9 @@ class BST:
     
 #--------------------------------------------------------------------------------------------------
 #Helper:    Function that moves data from API to the binary search tree    
-def getDataToBST(configurations = getConfigurations(), sortType = 'alphabetical'):
-    data = pd.DataFrame(client.get_grouped_daily_aggs(configurations['date']))
-    cleanDataAll(data, configurations['volume_min'])
-    root = TreeNode(data, 0)
+def getDataToBST(sortType):
+    root = TreeNode(BST.data, 0)
     bst = BST(root, sortType)
-    for x in range(1, len(data.index), 1):
-        bst.insert(TreeNode(data, x))
+    for x in range(1, len(BST.data.index), 1):
+        bst.insert(TreeNode(BST.data, x))
     return bst
