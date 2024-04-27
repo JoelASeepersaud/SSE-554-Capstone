@@ -78,11 +78,10 @@ def create_market(parent, width, height):
     display_frame.pack_propagate(False)
     display_frame.pack(side = 'bottom')
     
-    bst = getDataToBST()
     text_list = list()
-    for item in bst.inorderTrav():
-        text_list.append(item.nodeHandle())
     list_frame = ListFrame(display_frame, text_list, 70)
+    list_frame.updateData(text_list, 'Name')
+
 
 #create scrollable list
 class ListFrame(tk.Frame):
@@ -91,8 +90,11 @@ class ListFrame(tk.Frame):
     def __init__(self, parent, text_data, item_height):
         super().__init__(master = parent)
         self.pack(expand = True, fill = 'both')
-        
+
+        self.parent = parent
         self.text_data = text_data
+        self.item_height = item_height
+
         self.item_number = len(text_data)
         self.list_height = self.item_number * item_height
         
@@ -166,3 +168,12 @@ class ListFrame(tk.Frame):
         frame.configure(bg=top_bar_color)
         
         return frame
+    
+    def updateData(self, text_list, sortType):
+        if sortType == 'Name':
+            bst = getDataToBST()
+            text_list = list()
+            for item in bst.inorderTrav():
+                text_list.append(item.nodeHandle())
+        self.destroy()
+        self = ListFrame(self.parent, text_list, self.item_height)
