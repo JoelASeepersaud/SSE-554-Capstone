@@ -1,5 +1,5 @@
 from DataStructures.Node import Node
-from DataHandle import cleanDataAll, client
+from dataHandle import cleanDataAll, client
 import pandas as pd
 from Options import getConfigurations
 
