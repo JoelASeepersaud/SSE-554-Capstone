@@ -1,14 +1,13 @@
-from Node import Node
 
-#Unit 8 : Queues
+#Unit 4 : LinkedList
 #Tests located in UnitTest.py
 
-#DoubleLinkedNode:  Class that is used by the DoubleLinkedList class and inherits from the Node class
-class DoubleLinkedNode(Node):
-    def __init__(self, dataFrame, row):
-        super().init(dataFrame, row)
-        self.behind = None
-        self.ahead = None
+#DoubleLinkedNode:  Class that is used by the DoubleLinkedList class
+class DoubleLinkedNode():
+    def __init__(self, data, next=None, previous=None):
+        self.previous = previous
+        self.next = next
+        self.data = data
 
 #--------------------------------------------------------------------------------------------------
 
@@ -16,7 +15,8 @@ class DoubleLinkedNode(Node):
 class DoubleLinkedList:
     def __init__(self):
         self.size = 0
-        self.head, self.tail = None
+        self.head = None
+        self.tail = None
 
     def __iter__(self):
         cursor = self.head
@@ -29,27 +29,36 @@ class DoubleLinkedList:
             return True
         return False
         
-    def push(self, node: DoubleLinkedNode):
+    def push(self, item):
         if self.isEmpty():
-            self.head = node
-            self.tail = node
-        self.tail.next = node
-        node.previous = self.tail
-        node = self.tail
+            self.head = DoubleLinkedNode(item)
+            self.tail = self.head
+        else:
+            self.tail.next = DoubleLinkedNode(item, None, self.tail)
+            self.tail=self.tail.next
         self.size += 1
 
-    def __contains__(self):
-        #Will implement when we know how we will use this
-        raise NotImplementedError()
-
-    def remove(self, value):
-        raise NotImplementedError()
-
     def insert(self, value, position):
-        raise NotImplementedError()
+        if self.isEmpty():
+            self.push(value)
+            
+        elif position == 0:
+            self.head = None
+            self.size = 0
+            self.push(value)
+        else:
+            cursor=self.head
+            self.size=1
+            for _ in range(position-1):
+                cursor = cursor.next
+                self.size+=1
+            self.tail=cursor
+            self.push(value)
+            
+    def getItem(self, position):
+        cursor=self.head
+        for _ in range(position):
+            cursor=cursor.next
+        return cursor.data
     
 #--------------------------------------------------------------------------------------------------
-
-#Helper:    Function that moves data to LinkedList      *Still to be implemented   
-def getDataToLL():
-    pass
