@@ -115,6 +115,9 @@ def create_market(parent, width, height):
                                     relief ='solid',
                                     command = lambda: list_frame.updateData(text_list, 'Volume')
                                     )
+    
+    #populate list on startup
+    list_frame.updateData(text_list, 'Name')
 #create scrollable list
 class ListFrame(tk.Frame):
     
