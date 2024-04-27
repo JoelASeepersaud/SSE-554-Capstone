@@ -3,13 +3,16 @@ import ttkbootstrap as ttk
 from Market import create_market
 from Watchlist import create_watchlist
 from Options import create_options
-from DataHandle import cleanDataSingle
+from dataHandle import cleanDataSingle
 from polygon import RESTClient
 from Configurations import getPolygonAPIkey
 import pandas as pd
+from DataStructures import LinkedList
 
 client = RESTClient(getPolygonAPIkey())
 
+track_action = LinkedList.DoubleLinkedList()
+action_index = -1
 
 def search_stock():
     search=entry_search.get()
@@ -18,11 +21,23 @@ def profile():
     Name= ""
 
 def back():
-    linkedarray=''
+    global action_index
+    if action_index != 0:
+        action_index -= 1
+        track_action.getItem(action_index)()
     
 def forward():
-    linkedarray=''
-
+    global action_index
+    if action_index+2 <= track_action.size:
+        action_index += 1
+        track_action.getItem(action_index)()
+        
+def addMarket():
+    global action_index
+    action_index += 1
+    track_action.insert(Market, action_index)
+    Market()
+    
 def Market():
     for child in body_win.winfo_children():
         child.destroy()
@@ -30,6 +45,12 @@ def Market():
     Market_button.configure(bg = win_color)
     Watchlist_button.configure(bg = top_bar_color)
     Options_Button.configure(bg = top_bar_color)
+    
+def addWatchlist():
+    global action_index
+    action_index += 1
+    track_action.insert(Watchlist, action_index)
+    Watchlist()
     
 def Watchlist():
     for child in body_win.winfo_children():
@@ -39,6 +60,12 @@ def Watchlist():
     Watchlist_button.configure(bg = win_color)
     Options_Button.configure(bg = top_bar_color)
 
+def addOptions():
+    global action_index
+    action_index += 1
+    track_action.insert(Options, action_index)
+    Options()
+    
 def Options():
     for child in body_win.winfo_children():
         child.destroy()
@@ -83,13 +110,13 @@ back_button.configure(background = top_bar_color, activebackground = buttonOn_co
 forward_button = tk.Button(master = top_win, text = '>', font = "Calibri 20", command = forward)
 forward_button.configure(background = top_bar_color, activebackground = buttonOn_color)
 
-Market_button = tk.Button(master = top_win, text = 'Market', font = "Calibri 20", command = Market)
+Market_button = tk.Button(master = top_win, text = 'Market', font = "Calibri 20", command = addMarket)
 Market_button.configure(background = top_bar_color, activebackground = buttonOn_color)
 
-Watchlist_button = tk.Button(master = top_win, text = 'Watchlist', font = "Calibri 20", command = Watchlist)
+Watchlist_button = tk.Button(master = top_win, text = 'Watchlist', font = "Calibri 20", command = addWatchlist)
 Watchlist_button.configure(background = top_bar_color, activebackground = buttonOn_color)
 
-Options_Button = tk.Button(master = top_win, text = 'Options', font = "Calibri 20", command = Options)
+Options_Button = tk.Button(master = top_win, text = 'Options', font = "Calibri 20", command = addOptions)
 Options_Button.configure(background = top_bar_color, activebackground = buttonOn_color)
 
 title_label.place(x = w*.08, y = h*.005)
@@ -110,6 +137,7 @@ body_win.configure(bg = win_color)
 body_win.pack()
 
 #display market in body on startup
-create_market(body_win, w, h)
+addMarket()
+#create_market(body_win, w, h)
 
 window.mainloop()
