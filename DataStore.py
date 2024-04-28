@@ -1,9 +1,10 @@
 from DataStructures.BST import getDataToBST
+from DataStructures.Stack import Stack
 
 alphBST     = getDataToBST('alphabetical')
 openBST     = getDataToBST('open')
 closeBST    = getDataToBST('close')
-percentBST    = getDataToBST('percent')
-volumeBST    = getDataToBST('volume')
+percentBST  = getDataToBST('percent')
+volumeBST   = getDataToBST('volume')
 
-print(openBST)
+watchListStack = Stack()

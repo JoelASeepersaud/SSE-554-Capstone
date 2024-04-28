@@ -1,6 +1,6 @@
 import tkinter as tk
 import ttkbootstrap as ttk
-from DataStore import alphBST, openBST, closeBST, percentBST, volumeBST
+from DataStore import alphBST, openBST, closeBST, percentBST, volumeBST, watchListStack
 
 #create market display
 def create_market(parent, width, height):
@@ -80,7 +80,7 @@ def create_market(parent, width, height):
     
     text_list = list()
     list_frame = ListFrame(display_frame, text_list, 70)
-    list_frame.updateData(text_list, 'OpenPrice')
+    list_frame.updateData(text_list, 'Name')
 
     name_button.configure           (bg = win_color, 
                                     activebackground = buttonOn_color, 
@@ -177,7 +177,7 @@ class ListFrame(tk.Frame):
         frame.columnconfigure((0,1,2,3,4,5,6,7), weight = 1, uniform = 'a')
         
         name_button=tk.Button(frame, text = f'{item[0]}', font = "Calibri 15")
-        name_button.configure(bg = win_color, activebackground = buttonOn_color, fg = 'white')
+        name_button.configure(bg = win_color, activebackground = buttonOn_color, fg = 'white', command = lambda item = item: watchListStack.push(item))
         name_button.grid(row = 0, column = 0, columnspan = 4, sticky = 'w')
         
         Price_text=tk.Label(frame, text = f'{item[1]}', font = "Calibri 15")
