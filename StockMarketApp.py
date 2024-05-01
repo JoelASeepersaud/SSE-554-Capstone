@@ -151,7 +151,7 @@ back_button.place(x = w*.008, y = h*.059, width = w*.016)
 forward_button.place(x = w*.008 + w*.016 , y = h*.059, width = w*.016)
 Market_button.place(x = w*.21, y = h*.059, width = w*.082, height = h*.058)
 Watchlist_button.place(x = w*.42, y = h*.059, width = w*.082, height = h*.058)
-Correlations_Button.place(x = w*.63, y = h*.059, width = w*.082, height = h*.058)
+Correlations_Button.place(x = w*.63, y = h*.059, width = w*.087, height = h*.058)
 Options_Button.place(x = w*.84, y = h*.059, width = w*.082, height = h*.058)
 
 #body

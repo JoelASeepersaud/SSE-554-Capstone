@@ -15,10 +15,9 @@ class node:
     def __init__(self, data, next = None):
         self.data = data
         self.next = next
-        
+       
+#dictionary entry
 class Entry(object):
-    """Represents a dictionary entry.
-    Supports comparisons by key."""
 
     def __init__(self, key, value):
         self.key = key
@@ -38,13 +37,15 @@ class Entry(object):
     def __le__(self, other):
         if type(self) != type(other): return False
         return self.key <= other.key
-    
+
+#HashTable using keys in a dictionary 
 class HashTable:
     
-    data = pd.DataFrame(client.get_grouped_daily_aggs(getConfigurations()['date']))
-    cleanDataAll(data, getConfigurations()['volume_min'])
+    data = pd.DataFrame(client.get_grouped_daily_aggs(getConfigurations()[0][1]))
+    cleanDataAll(data, getConfigurations()[1][1])
     
     def __init__(self, capacity = 160):
+        self.keys = []
         self.capacity = capacity
         self.table=[]
         for i in range(self.capacity):
@@ -73,6 +74,7 @@ class HashTable:
         for i in range(self.capacity):
             self.table.append(None)
         self.size = 0
+        self.keys = []
 
     def __setitem__(self, key, value):
         while self.size == len(self.table):
@@ -83,6 +85,7 @@ class HashTable:
             newNode = node(Entry(key, value), self.table[self.index])
             self.table[self.index] = newNode
             self.size += 1
+            self.keys.append(key)
             
     def resize(self):
         temp = self.table
@@ -101,8 +104,22 @@ class HashTable:
         if not key in self: return None
         return self.foundNode.data.value
     
+    def getItems(self, key):
+        similarKeys = []
+        items = []
+        for item in self.keys:
+            if key in item[:len(key)]:
+                similarKeys.append(item)
+                
+        if len(similarKeys) == 0: return None
+        
+        similarKeys.sort()
+        for item in similarKeys:
+            items.append(self.__getitem__(item))
+        return items
         
 #--------------------------------------------------------------------------------------------------
+#create and fill hashtable
 def getDataToHash():
     hashtable = HashTable()
     for x in range(0, len(hashtable.data.index), 1):
