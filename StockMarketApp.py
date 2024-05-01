@@ -16,6 +16,7 @@ action_index = -1
 
 def search_stock():
     search=entry_search.get()
+    addMarket(search)
 
 def profile():
     Name= ""
@@ -32,16 +33,16 @@ def forward():
         action_index += 1
         track_action.getItem(action_index)()
         
-def addMarket():
+def addMarket(search = None):
     global action_index
     action_index += 1
     track_action.insert(Market, action_index)
-    Market()
+    Market(search)
     
-def Market():
+def Market(search = None):
     for child in body_win.winfo_children():
         child.destroy()
-    create_market(body_win, w, h)
+    create_market(body_win, w, h, search)
     Market_button.configure(bg = win_color)
     Watchlist_button.configure(bg = top_bar_color)
     Options_Button.configure(bg = top_bar_color)
@@ -68,6 +69,7 @@ def addOptions():
     track_action.insert(Options, action_index)
     Options()
     
+    
 def Options():
     for child in body_win.winfo_children():
         child.destroy()
@@ -82,7 +84,7 @@ def addCorrelations():
     action_index += 1
     track_action.insert(Correlations, action_index)
     Correlations()
-    
+
 def Correlations():
     for child in body_win.winfo_children():
         child.destroy()
