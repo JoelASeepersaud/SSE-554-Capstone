@@ -81,15 +81,24 @@ def create_market(parent, width, height, search = None):
     
     text_list = list()
     
+    #display stock by search
     if search != None:
-        item=searchStock[search]
-        if item != None:
-            text_list.append(item.nodeHandle())
-            list_frame = ListFrame(display_frame, text_list, 70)
-        else:
+        items = searchStock.getItems(search)
+        
+        #stock not found
+        if items == None:
             noItem_text=tk.Label(master = display_frame, text = 'Stock Not Found', font = "Calibri 30")
             noItem_text.configure(bg = win_color, fg = 'white')
             noItem_text.pack()
+                
+        #stock found and display
+        else:
+            for item in items:
+                if item != None:
+                    text_list.append(item.nodeHandle())
+            list_frame = ListFrame(display_frame, text_list, 70)
+
+    #display initial stocks if no search
     else:
         for item in alphBST.inorderTrav():
             text_list.append(item.nodeHandle())
