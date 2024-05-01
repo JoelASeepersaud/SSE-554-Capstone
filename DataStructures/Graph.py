@@ -12,8 +12,11 @@ class GraphEdge:
     def __init__(self, start, end, weight):
         self.start = start
         self.end = end
-        self.weight = weight
+        self.positive = True
         self.mark = False
+        if weight < 0: self.postive = False
+        self.weight = abs(weight)
+
 
 class Graph:
     def __init__(self):
@@ -28,7 +31,7 @@ class Graph:
         if startNode.key in self.nodes and endNode.key in self.nodes:
             start = startNode
             end = endNode
-            weight = abs(start.percentChange - end.percentChange) 
+            weight = start.percentChange - end.percentChange
             newEdge = GraphEdge(start, end, weight)
             self.edges.append(newEdge)
         else:

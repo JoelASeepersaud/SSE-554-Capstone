@@ -22,8 +22,8 @@ class TreeNode(Node):
 #BST:       Class that uses the TreeNode class to create a binary search tree
 class BST:
 
-    data = pd.DataFrame(client.get_grouped_daily_aggs(getConfigurations()['date']))
-    cleanDataAll(data, getConfigurations()['volume_min'])
+    data = pd.DataFrame(client.get_grouped_daily_aggs(getConfigurations()[0][1]))
+    cleanDataAll(data, getConfigurations()[1][1])
 
     def __init__(self, root, sortType): 
         self.root = root

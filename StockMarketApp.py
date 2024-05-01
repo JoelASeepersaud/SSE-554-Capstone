@@ -3,7 +3,7 @@ import ttkbootstrap as ttk
 from Market import create_market
 from Watchlist import create_watchlist
 from Options import create_options
-from dataHandle import cleanDataSingle
+from Correlation import create_correlations
 from polygon import RESTClient
 from Configurations import getPolygonAPIkey
 import pandas as pd
@@ -45,6 +45,7 @@ def Market():
     Market_button.configure(bg = win_color)
     Watchlist_button.configure(bg = top_bar_color)
     Options_Button.configure(bg = top_bar_color)
+    Correlations_Button.configure(bg = top_bar_color)
     
 def addWatchlist():
     global action_index
@@ -59,6 +60,7 @@ def Watchlist():
     Market_button.configure(bg = top_bar_color)
     Watchlist_button.configure(bg = win_color)
     Options_Button.configure(bg = top_bar_color)
+    Correlations_Button.configure(bg = top_bar_color)
 
 def addOptions():
     global action_index
@@ -73,6 +75,22 @@ def Options():
     Market_button.configure(bg = top_bar_color)
     Watchlist_button.configure(bg = top_bar_color)
     Options_Button.configure(bg = win_color)
+    Correlations_Button.configure(bg = top_bar_color)
+
+def addCorrelations():
+    global action_index
+    action_index += 1
+    track_action.insert(Correlations, action_index)
+    Correlations()
+    
+def Correlations():
+    for child in body_win.winfo_children():
+        child.destroy()
+    create_correlations(body_win, w, h)
+    Market_button.configure(bg = top_bar_color)
+    Watchlist_button.configure(bg = top_bar_color)
+    Options_Button.configure(bg = top_bar_color)
+    Correlations_Button.configure(bg = win_color)
     
 top_bar_color='grey18'
 win_color='grey26'
@@ -119,6 +137,9 @@ Watchlist_button.configure(background = top_bar_color, activebackground = button
 Options_Button = tk.Button(master = top_win, text = 'Options', font = "Calibri 20", command = addOptions)
 Options_Button.configure(background = top_bar_color, activebackground = buttonOn_color)
 
+Correlations_Button = tk.Button(master = top_win, text = 'Correlations', font = "Calibri 20", command = addCorrelations)
+Correlations_Button.configure(background = top_bar_color, activebackground = buttonOn_color)
+
 title_label.place(x = w*.08, y = h*.005)
 search_button.place(x = w*.26, y = h*.014, width = w*.065, height = h*.03)
 search_bar.place(x = w*.26 + w*.065 , y = h*.014, width = w*.46, height = h*.03)
@@ -126,9 +147,10 @@ profile_button.place(x = w*.78, y = h*.014, height = h*.03)
 
 back_button.place(x = w*.008, y = h*.059, width = w*.016)
 forward_button.place(x = w*.008 + w*.016 , y = h*.059, width = w*.016)
-Market_button.place(x = w*.26, y = h*.059, width = w*.082, height = h*.058)
-Watchlist_button.place(x = w*.47, y = h*.059, width = w*.082, height = h*.058)
-Options_Button.place(x = w*.69, y = h*.059, width = w*.082, height = h*.058)
+Market_button.place(x = w*.21, y = h*.059, width = w*.082, height = h*.058)
+Watchlist_button.place(x = w*.42, y = h*.059, width = w*.082, height = h*.058)
+Correlations_Button.place(x = w*.63, y = h*.059, width = w*.082, height = h*.058)
+Options_Button.place(x = w*.84, y = h*.059, width = w*.082, height = h*.058)
 
 #body
 body_win = tk.Frame(master = window, width = w, height = h - h*.118)
