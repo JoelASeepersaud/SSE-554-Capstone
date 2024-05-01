@@ -1,9 +1,9 @@
 import tkinter as tk
 import ttkbootstrap as ttk
-from DataStore import alphBST, openBST, closeBST, percentBST, volumeBST, watchListStack
+from DataStore import alphBST, openBST, closeBST, percentBST, volumeBST, watchListStack, searchStock
 
 #create market display
-def create_market(parent, width, height):
+def create_market(parent, width, height, search = None):
     global top_bar_color
     global win_color
     global buttonOn_color
@@ -75,12 +75,25 @@ def create_market(parent, width, height):
     
     #display list of stock
     display_frame = tk.Frame(master = parent, width = w, height = (h-h*.118)*.67)
+    display_frame.configure(bg = win_color)
     display_frame.pack_propagate(False)
     display_frame.pack(side = 'bottom')
     
     text_list = list()
-    list_frame = ListFrame(display_frame, text_list, 70)
-    list_frame.updateData(text_list, 'Name')
+    
+    if search != None:
+        item=searchStock[search]
+        if item != None:
+            text_list.append(item.nodeHandle())
+            list_frame = ListFrame(display_frame, text_list, 70)
+        else:
+            noItem_text=tk.Label(master = display_frame, text = 'Stock Not Found', font = "Calibri 30")
+            noItem_text.configure(bg = win_color, fg = 'white')
+            noItem_text.pack()
+    else:
+        for item in alphBST.inorderTrav():
+            text_list.append(item.nodeHandle())
+        list_frame = ListFrame(display_frame, text_list, 70)
 
     name_button.configure           (bg = win_color, 
                                     activebackground = buttonOn_color, 
@@ -116,8 +129,6 @@ def create_market(parent, width, height):
                                     command = lambda: list_frame.updateData(text_list, 'Volume')
                                     )
     
-    #populate list on startup
-    list_frame.updateData(text_list, 'Name')
 #create scrollable list
 class ListFrame(tk.Frame):
     
