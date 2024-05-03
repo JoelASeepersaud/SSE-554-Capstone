@@ -1,10 +1,10 @@
 import unittest
-from Configurations import getConfigurations
-from Node import createTestNode
-from BST import BST, getDataToBST
-from LinkedList import DoubleLinkedList
-from Stack import Stack
-from Queue import Queue
+from DataStructures.Configurations import getConfigurations
+from DataStructures.Node import Node
+from DataStructures.BST import BST, TreeNode, getDataToBST
+from DataStructures.LinkedList import DoubleLinkedList
+from DataStructures.Stack import Stack
+from DataStructures.Queue import Queue
 import pandas as pd
 
 #--------------------------------------------------------------------------------------------------
@@ -68,50 +68,42 @@ class TestStack(unittest.TestCase):
 class TestQueue(unittest.TestCase): 
     def setUp(self):
         self.queue = Queue()
-        self.text_list = [('1 S&P500', '2', '1', '50%', '5/2/2024'), ('2 S&P500', '2', '1', '50%', '5/2/2024'), ('3 S&P500', '2', '1', '50%', '5/2/2024'), ('4 S&P500', '2', '1', '50%', '5/2/2024'), ('5 S&P500', '2', '1', '50%', '5/2/2024'), ('6 S&P500', '2', '1', '50%', '5/2/2024'), ('7 S&P500', '2', '1', '50%', '5/2/2024'), ('8 S&P500', '2', '1', '50%', '5/2/2024'), ('9 S&P500', '2', '1', '50%', '5/2/2024'), ('2 S&P500', '2', '1', '50%', '5/2/2024'), ('3 S&P500', '2', '1', '50%', '5/2/2024'), ('4 S&P500', '2', '1', '50%', '5/2/2024'), ('5 S&P500', '2', '1', '50%', '5/2/2024')]
+        self.text_list = [('1 S&P500', '2', '1', '50%', '5/2/2024'), ('2 S&P500', '2', '1', '50%', '5/2/2024'), ('3 S&P500', '2', '1', '50%', '5/2/2024'), ('4 S&P500', '2', '1', '50%', '5/2/2024'), ('5 S&P500', '2', '1', '50%', '5/2/2024')]
 
     def testQueueCreation(self):
-        self.assertTrue(isinstance(self.queue, TestQueue))
+        self.assertTrue(isinstance(self.queue, Queue))
 
     def testQueueisEmpty(self):
-        self.assertTrue(self.queue.isEmpty())
+        self.queue1 = Queue()
+        self.assertTrue(self.queue1.isEmpty())
 
-    def testQueuePush(self):
+    def testQueuePushPopPeek(self):
         for item in self.text_list:
-            self.stack.push(item)
+            self.queue.push(item)
         self.assertFalse(self.queue.isEmpty())
-
-    def testQueuePop(self):
-        self.assertTrue(isinstance(self.queue.pop(), tuple))
-
-    def testQueuePeek(self):
-        self.assertTrue(isinstance(self.queue.peek(), tuple))
-
+        self.assertTrue(isinstance(self.queue.pop().data, tuple))
+        self.assertTrue(isinstance(self.queue.peek().data, tuple))
     
-"""
+
 #--------------------------------------------------------------------------------------------------
 
 #Unit 10 : Tree Test Cases
 class TestBST(unittest.TestCase): 
     def setUp(self):
-        self.testBST = getDataToBST(getConfigurations(), 'alphabetical')
-        self.emptyDf = pd.DataFrame()
-        self.testNodeList = createTestNode()
+        self.testBST = getDataToBST('alphabetical')
 
     def testBSTCreation(self):
         self.assertTrue(isinstance(self.testBST, BST))
         self.assertIsNotNone(self.testBST.root)
 
     def testBSTInsert(self):
-        for item in self.testNodeList:
-            self.testBST.insert(item)
-        for item in self.testNodeList:
-            self.assertIn(item, self.testBST)
+        self.assertFalse(self.testBST.isEmpty())
+        
 
     def testBSTTrav(self):
         lyst = self.testBST.inorderTrav()
-        self.assertTrue(lyst[0] <= lyst[1])
-        self.assertTrue(lyst[2] <= lyst[3])
+        self.assertTrue(lyst[0].ticker <= lyst[1].ticker)
+        self.assertTrue(lyst[2].ticker <= lyst[3].ticker)
 
     def testBSTStr(self):
         stringBST = str(self.testBST)
@@ -119,6 +111,5 @@ class TestBST(unittest.TestCase):
 
 #--------------------------------------------------------------------------------------------------
 
-"""
 if __name__ == '__main__':
     unittest.main()

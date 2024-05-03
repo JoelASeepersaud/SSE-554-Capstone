@@ -1,7 +1,7 @@
-from Node import Node
-from dataHandle import cleanDataAll, client
+from DataStructures.Node import Node
+from DataStructures.dataHandle import cleanDataAll, client
 import pandas as pd
-from Configurations import getConfigurations
+from DataStructures.Configurations import getConfigurations
 
 #Unit 10 : Trees
 #Tests located in UnitTest.py
@@ -129,6 +129,11 @@ class BST:
         if item.ticker in lyst:
             return True
         return False
+    
+    def isEmpty(self):
+        lyst = self.inorderTrav()
+        if lyst: return False
+        return True
 
     
 #--------------------------------------------------------------------------------------------------

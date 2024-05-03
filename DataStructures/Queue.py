@@ -1,6 +1,6 @@
 from DataStructures.Node import Node
 import pandas as pd
-from Options import getConfigurations
+from DataStructures.Configurations import getConfigurations
 
 #Unit 8 : Queues
 #Tests located in UnitTest.py
@@ -17,7 +17,8 @@ class QueueNode(Node):
 class Queue():
 
     def __init__(self):
-        self.head, self.tail = None
+        self.head = None
+        self.tail = None
         self.size = 0
 
     def __iter__(self):
@@ -26,9 +27,13 @@ class Queue():
             yield cursor
             cursor = cursor.next
 
-    def push(self, node : QueueNode):
-        if self.is_empty(): self.head = node
-        else: self.tail.next = node
+    def push(self, node):
+        node = QueueNode(node)
+        if self.isEmpty(): 
+            self.head = node
+            self.tail = node
+        else: 
+            self.tail.next = node
         self.tail = node
         self.size += 1
 
@@ -41,9 +46,11 @@ class Queue():
         return popNode
 
     def peek(self):
-        if self.isEmpty: raise KeyError("The Queue is empty!")
+        if self.isEmpty(): raise KeyError("The Queue is empty!")
         return self.head        
     
     def isEmpty(self):
-        if self.size != 0: return False
-        return True
+        if self.size == 0: 
+            return True
+        return False
+        
