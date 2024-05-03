@@ -5,7 +5,7 @@ from Watchlist import create_watchlist
 from Options import create_options
 from Correlation import create_correlations
 from polygon import RESTClient
-from Configurations import getPolygonAPIkey
+from DataStructures.Configurations import getPolygonAPIkey
 import pandas as pd
 from DataStructures import LinkedList
 

@@ -1,5 +1,4 @@
 from DataStructures.Node import Node
-from DataHandle import cleanDataAll, client
 import pandas as pd
 from Options import getConfigurations
 
@@ -8,17 +7,14 @@ from Options import getConfigurations
 
 #QueueNode:  Class that is used by the Queue class and inherits from the Node class
 class QueueNode(Node):
-    def __init__(self, dataFrame, row):
-        super().init(dataFrame, row)
+    def __init__(self, data):
+        self.data = data
         self.next = None
 
 #--------------------------------------------------------------------------------------------------
 
 #Queue:     Class that uses the QueueNode class to create a linked queue
 class Queue():
-
-    data = pd.DataFrame(client.get_grouped_daily_aggs(getConfigurations()['date']))
-    cleanDataAll(data, getConfigurations()['volume_min'])
 
     def __init__(self):
         self.head, self.tail = None
@@ -51,12 +47,3 @@ class Queue():
     def isEmpty(self):
         if self.size != 0: return False
         return True
-
-#--------------------------------------------------------------------------------------------------
-
-#Helper:    Function that sorts data then moves to Queue
-def sort():
-    pass
-
-def getDataToQueue():
-    pass

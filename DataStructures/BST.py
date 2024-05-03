@@ -1,7 +1,7 @@
-from DataStructures.Node import Node
+from Node import Node
 from dataHandle import cleanDataAll, client
 import pandas as pd
-from Options import getConfigurations
+from Configurations import getConfigurations
 
 #Unit 10 : Trees
 #Tests located in UnitTest.py

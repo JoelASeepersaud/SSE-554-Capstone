@@ -1,6 +1,6 @@
 import tkinter as tk
 import ttkbootstrap as ttk
-from Configurations import getConfigurations, setConfigurations
+from DataStructures.Configurations import getConfigurations, setConfigurations
 
 
 #create option display
