@@ -58,7 +58,8 @@ class DoubleLinkedList:
     def getItem(self, position):
         cursor=self.head
         for _ in range(position):
-            cursor=cursor.next
+            if cursor!= None:
+                cursor=cursor.next
         return cursor.data
     
 #--------------------------------------------------------------------------------------------------
