@@ -43,8 +43,9 @@ class HashTable:
     
     data = pd.DataFrame(client.get_grouped_daily_aggs(getConfigurations()[0][1]))
     cleanDataAll(data, getConfigurations()[1][1])
+    HashCap = 160
     
-    def __init__(self, capacity = 160):
+    def __init__(self, capacity = HashCap):
         self.keys = []
         self.capacity = capacity
         self.table=[]
@@ -90,9 +91,10 @@ class HashTable:
     def resize(self):
         temp = self.table
         cap = len(self.table)
+        self.capacity = cap * 2
         self.clear()
         self.table = []
-        for i in range(cap*2):
+        for i in range(self.capacity):
             self.table.append(None)
         
         for i in range(len(temp)):
@@ -117,6 +119,11 @@ class HashTable:
         for item in similarKeys:
             items.append(self.__getitem__(item))
         return items
+
+    def isEmpty(self):
+        if self.size == 0:
+            return True
+        return False
         
 #--------------------------------------------------------------------------------------------------
 #create and fill hashtable
