@@ -5,33 +5,36 @@ from DataStructures.BST import BST, TreeNode, getDataToBST
 from DataStructures.LinkedList import DoubleLinkedList
 from DataStructures.Stack import Stack
 from DataStructures.Queue import Queue
+from DataStructures.HashTable import HashTable, getDataToHash
 import pandas as pd
 
 #--------------------------------------------------------------------------------------------------
 
 #Unit 4 : Linked List Test Cases
-"""class TestLinkedList(unittest.TestCase): 
+class TestLinkedList(unittest.TestCase): 
     def setUp(self):
         self.lLyst = DoubleLinkedList()
         self.text_list = [('1 S&P500', '2', '1', '50%', '5/2/2024'), ('2 S&P500', '2', '1', '50%', '5/2/2024'), ('3 S&P500', '2', '1', '50%', '5/2/2024'), ('4 S&P500', '2', '1', '50%', '5/2/2024'), ('5 S&P500', '2', '1', '50%', '5/2/2024'), ('6 S&P500', '2', '1', '50%', '5/2/2024'), ('7 S&P500', '2', '1', '50%', '5/2/2024'), ('8 S&P500', '2', '1', '50%', '5/2/2024'), ('9 S&P500', '2', '1', '50%', '5/2/2024'), ('2 S&P500', '2', '1', '50%', '5/2/2024'), ('3 S&P500', '2', '1', '50%', '5/2/2024'), ('4 S&P500', '2', '1', '50%', '5/2/2024'), ('5 S&P500', '2', '1', '50%', '5/2/2024')]
-
+        for item in self.text_list:
+            self.lLyst.push(item)
+        self.testPush = ('TEST', '2', '1', '50%', '5/2/2024')
+            
     def testLLCreation(self):
         self.assertTrue(isinstance(self.lLyst, DoubleLinkedList))
 
-    def testLLisEmpty(self):
-        self.assertTrue(self.lLyst.isEmpty())
-
     def testLLPush(self):
-        for item in self.text_list:
-            self.lLyst.push(item)
         self.assertFalse(self.lLyst.isEmpty())
 
-    def testLLinsert(self):
-        self.testPush = ('TEST', '2', '1', '50%', '5/2/2024')
-        self.lLyst.insert(self.testPush, 4)
-
     def testLLGet(self):
-        self.assertEqual(self.lLyst.getItem(3), self.testPush)"""
+        self.assertEqual(self.lLyst.getItem(4), self.text_list[4])
+        
+    def testLLinsert(self):
+        self.lLyst.insert(self.testPush, 4)
+        self.assertEqual(self.lLyst.getItem(4), self.testPush)
+        
+    def testLLisEmpty(self):
+        self.testEmpty = DoubleLinkedList()
+        self.assertTrue(self.testEmpty.isEmpty())
 
 #--------------------------------------------------------------------------------------------------
 
@@ -110,6 +113,45 @@ class TestBST(unittest.TestCase):
         self.assertIsInstance(stringBST, str)
 
 #--------------------------------------------------------------------------------------------------
+
+#Unit 11 : HashTable Test Cases
+class TestHashTable(unittest.TestCase):
+    def setUp(self):
+        self.hashtable = HashTable()
+        self.text_list = [('1 S&P500', '2', '1', '50%', '5/2/2024'), ('2 S&P500', '2', '1', '50%', '5/2/2024'), ('3 S&P500', '2', '1', '50%', '5/2/2024'), ('4 S&P500', '2', '1', '50%', '5/2/2024'), ('5 S&P500', '2', '1', '50%', '5/2/2024')]
+        for item in self.text_list:
+            self.hashtable[item[0]] = item
+    
+    def testisEmpty(self):
+        self.EmptyHash = HashTable()
+        self.assertTrue(self.EmptyHash.isEmpty())
+        
+    def testSetItem(self):
+        self.assertFalse(self.hashtable.isEmpty())
+        
+    def testContains(self):
+        self.assertTrue(self.text_list[2][0] in self.hashtable)
+        
+    def testClear(self):
+        self.hashtable.clear()
+        self.assertTrue(self.hashtable.isEmpty())
+        
+    def testGetItem(self):
+        self.assertEqual(self.hashtable[self.text_list[4][0]], self.text_list[4])
+        
+    def testResize(self):
+        oldCap=self.hashtable.capacity
+        self.hashtable.resize()
+        self.assertEqual(oldCap*2, self.hashtable.capacity)
+        self.assertEqual(self.hashtable[self.text_list[4][0]], self.text_list[4])
+        
+    def testGetItems(self):
+        self.Search = getDataToHash()
+        search = 'AA'
+        result = [self.Search['AAL'], self.Search['AAPL']]
+        self.assertEqual(self.Search.getItems(search), result)
+        
+
 
 if __name__ == '__main__':
     unittest.main()
