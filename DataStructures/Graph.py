@@ -42,3 +42,5 @@ class Graph:
     
     def getAllEdges(self):
         return self.edges
+    
+# create a data pull and make it a graph, make the breadth search using a queue and display it. 
