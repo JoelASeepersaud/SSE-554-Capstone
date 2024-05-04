@@ -43,7 +43,7 @@ class Queue():
         self.head = self.head.next
         self.size -= 1
         if self.isEmpty(): self.tail = None
-        return popNode
+        return popNode.data
 
     def peek(self):
         if self.isEmpty(): raise KeyError("The Queue is empty!")

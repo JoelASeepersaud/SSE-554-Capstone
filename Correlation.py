@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk as ttk2
 import ttkbootstrap as ttk
+from DataStore import correlationGraph
 
 #create correlation display
 def create_correlations(parent, width, height):
@@ -28,28 +29,20 @@ def create_correlations(parent, width, height):
     info_frame = tk.Frame(master = parent, width = w*.87)
     info_frame.configure(bg = win_color)
     info_frame.rowconfigure(0, weight = 1)
-    info_frame.columnconfigure((0,1,2,3,4,5,6,7), weight = 1, uniform = 'a')
+    info_frame.columnconfigure((0,1,2,3,4,5,6,7,8), weight = 1, uniform = 'a')
     info_frame.pack(expand = True, fill = 'both', padx = w*.065)
     
-    name_text = tk.Label(master = info_frame, text = 'Name', font = "Calibri 15")
-    name_text.configure(bg = win_color, fg = 'white')
-    name_text.grid(row = 0, column = 0, columnspan = 4, sticky = 'w')
+    Stock1_text = tk.Label(master = info_frame, text = 'Stock One', font = "Calibri 15")
+    Stock1_text.configure(bg = win_color, fg = 'white')
+    Stock1_text.grid(row = 0, column = 1, sticky = 'w')
     
-    price_text = tk.Label(master = info_frame, text = 'Open Price', font = "Calibri 15")
-    price_text.configure(bg = win_color, fg = 'white')
-    price_text.grid(row = 0, column = 4, sticky = 'e')
+    Stock2_text = tk.Label(master = info_frame, text = 'Stock Two', font = "Calibri 15")
+    Stock2_text.configure(bg = win_color, fg = 'white')
+    Stock2_text.grid(row = 0, column = 4)
     
-    change_text = tk.Label(master = info_frame, text = 'Close Price', font = "Calibri 15")
-    change_text.configure(bg = win_color, fg = 'white')
-    change_text.grid(row = 0, column = 5, sticky = 'e')
-    
-    changepercent_text = tk.Label(master = info_frame, text = 'Percent Change', font = "Calibri 15")
+    changepercent_text = tk.Label(master = info_frame, text = 'Difference in % Change', font = "Calibri 15")
     changepercent_text.configure(bg = win_color, fg = 'white')
-    changepercent_text.grid(row = 0, column = 6, sticky = 'e')
-    
-    date_text = tk.Label(master = info_frame, text = 'Volume', font = "Calibri 15")
-    date_text.configure(bg = win_color, fg = 'white')
-    date_text.grid(row = 0, column = 7, sticky = 'e')
+    changepercent_text.grid(row = 0, column = 7, sticky = 'e')
     
     divider_frame = tk.Frame(master = parent, width = w*.87, height = 4)
     divider_frame.configure(bg = top_bar_color)
@@ -59,7 +52,7 @@ def create_correlations(parent, width, height):
     bot_frame.pack_propagate(False)
     bot_frame.pack(side = 'bottom')
 
-    text_list = list()
+    text_list = correlationGraph.breadthSearchCorrelation()
     list_frame = ListFrame(bot_frame, text_list, 70)
     
 #create scrollable list
@@ -115,27 +108,20 @@ class ListFrame(tk.Frame):
         frame = tk.Frame(self.frame)
         
         frame.rowconfigure(0, weight = 1)
-        frame.columnconfigure((0,1,2,3,4,5,6,7), weight = 1, uniform = 'a')
+        frame.columnconfigure((0,1,2,3,4,5,6,7,8), weight = 1, uniform = 'a')
         
-        name_button=tk.Button(frame, text = f'{item[0]}', font = "Calibri 15")
-        name_button.configure(bg = win_color, activebackground = buttonOn_color, fg = 'white')
-        name_button.grid(row = 0, column = 0, columnspan = 4, sticky = 'w')
+        name_text1=tk.Label(frame, text = f'{item[0]}', font = "Calibri 15")
+        name_text1.configure(bg = win_color, fg = 'white')
+        name_text1.grid(row = 0, column = 1, sticky = 'w')
         
-        Price_text=tk.Label(frame, text = f'{item[1]}', font = "Calibri 15")
-        Price_text.configure(bg = win_color, fg = 'white')
-        Price_text.grid(row = 0, column = 4, sticky = 'e')
+        name_text2=tk.Label(frame, text = f'{item[1]}', font = "Calibri 15")
+        name_text2.configure(bg = win_color, fg = 'white')
+        name_text2.grid(row = 0, column = 4)
         
-        Change_text=tk.Label(frame, text = f'{item[2]}', font = "Calibri 15")
-        Change_text.configure(bg = win_color, fg = 'white')
-        Change_text.grid(row = 0, column = 5, sticky = 'e')
-        
-        Changepercent_text = tk.Label(frame, text = f'{item[3]}', font = "Calibri 15")
+        Changepercent_text = tk.Label(frame, text = f'{item[2]}', font = "Calibri 15")
         Changepercent_text.configure(bg = win_color, fg = 'white')
-        Changepercent_text.grid(row = 0, column = 6, sticky = 'e')
+        Changepercent_text.grid(row = 0, column = 7, sticky = 'e')
 
-        date_text=tk.Label(frame, text = f'{item[4]}', font = "Calibri 15")
-        date_text.configure(bg = win_color, fg = 'white')
-        date_text.grid(row = 0, column = 7, sticky = 'e')
         
         return frame
     

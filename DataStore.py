@@ -1,6 +1,7 @@
 from DataStructures.BST import getDataToBST
 from DataStructures.Stack import Stack
 from DataStructures.HashTable import getDataToHash
+from DataStructures.Graph import createGraph
 
 alphBST     = getDataToBST('alphabetical')
 openBST     = getDataToBST('open')
@@ -11,3 +12,5 @@ volumeBST   = getDataToBST('volume')
 watchListStack = Stack()
 
 searchStock = getDataToHash()
+
+correlationGraph = createGraph()
