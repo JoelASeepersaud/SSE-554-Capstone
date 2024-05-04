@@ -6,6 +6,7 @@ from DataStructures.LinkedList import DoubleLinkedList
 from DataStructures.Stack import Stack
 from DataStructures.Queue import Queue
 from DataStructures.HashTable import HashTable, getDataToHash
+from DataStructures.Graph import Graph, createGraph
 import pandas as pd
 
 #--------------------------------------------------------------------------------------------------
@@ -84,7 +85,7 @@ class TestQueue(unittest.TestCase):
         for item in self.text_list:
             self.queue.push(item)
         self.assertFalse(self.queue.isEmpty())
-        self.assertTrue(isinstance(self.queue.pop().data, tuple))
+        self.assertTrue(isinstance(self.queue.pop(), tuple))
         self.assertTrue(isinstance(self.queue.peek().data, tuple))
     
 
@@ -150,8 +151,41 @@ class TestHashTable(unittest.TestCase):
         search = 'AA'
         result = [self.Search['AAL'], self.Search['AAPL']]
         self.assertEqual(self.Search.getItems(search), result)
-        
 
+#--------------------------------------------------------------------------------------------------
+
+#Unit 11 : Graph Test Cases
+class TestGraphTable(unittest.TestCase):
+    def setUp(self):
+        self.graph = createGraph()
+    
+    def testGraphCreation(self):
+        self.assertTrue(isinstance(self.graph, Graph))
+        self.assertTrue(self.graph.nodes)
+        self.assertTrue(self.graph.edges)
+
+    def testGetMethods(self):
+        self.assertTrue(isinstance(self.graph.nodes, list))
+        self.assertTrue(isinstance(self.graph.edges, list))
+
+    def testRestMarks(self):
+        for item in self.graph.edges:
+            item.mark = True
+
+        self.graph.resetMarks()
+
+        for item in self.graph.edges:
+            self.assertFalse(item.mark)
+
+    def testCompleteGraph(self):
+        self.graph.createCompleteGraph
+        self.assertTrue(len(self.graph.edges) > len(self.graph.nodes))
+
+    def testBFS(self):
+        lyst = self.graph.breadthSearchCorrelation()
+        self.assertTrue(isinstance(lyst, list))
+        self.assertTrue(isinstance(lyst[0], tuple))
+        self.assertTrue(len(lyst[0]) == 3)
 
 if __name__ == '__main__':
     unittest.main()
