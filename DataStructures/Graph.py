@@ -4,6 +4,10 @@ from DataStructures.dataHandle import cleanDataAll, client
 from DataStructures.Configurations import getConfigurations
 import pandas as pd
 
+#Unit 10 : Graphs
+#Tests located in UnitTest.py
+
+#GraphNode:  Class that is used by the Graph class and inherits from the Node class
 class GraphNode(Node):
     def __init__(self, dataFrame, row):
         super().__init__(dataFrame, row)
@@ -15,6 +19,9 @@ class GraphNode(Node):
         thisTuple = (self.ticker, self.open, self.close, self.percentChange, self.volume)
         return thisTuple
 
+#--------------------------------------------------------------------------------------------------
+
+#GraphEdge: Class used to define an edge between vertices
 class GraphEdge:
     def __init__(self, start, end, weight):
         self.start = start
@@ -27,8 +34,9 @@ class GraphEdge:
     def edgeHandle(self):
         return (self.start.ticker, self.end.ticker, self.weight)
     
+#--------------------------------------------------------------------------------------------------
 
-
+#Graph:     Class that uses the GraphNode and GraphEdge class to create a Graph
 class Graph:
 
     data = pd.DataFrame(client.get_grouped_daily_aggs(getConfigurations()[0][1]))
@@ -99,7 +107,10 @@ class Graph:
                         item.mark = True
 
         return returnList
+    
+#--------------------------------------------------------------------------------------------------
 
+#Helper:    Function that moves data from API to the graph   
 def createGraph():
     graph = Graph()
     for x in range(1, len(Graph.data.index), 1):

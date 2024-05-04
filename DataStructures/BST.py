@@ -135,8 +135,8 @@ class BST:
         if lyst: return False
         return True
 
-    
 #--------------------------------------------------------------------------------------------------
+
 #Helper:    Function that moves data from API to the binary search tree    
 def getDataToBST(sortType):
     root = TreeNode(BST.data, 0)

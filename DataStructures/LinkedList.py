@@ -61,5 +61,3 @@ class DoubleLinkedList:
             if cursor!= None:
                 cursor=cursor.next
         return cursor.data
-    
-#--------------------------------------------------------------------------------------------------

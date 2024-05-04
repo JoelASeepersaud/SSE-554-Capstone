@@ -3,6 +3,10 @@ from DataStructures.dataHandle import cleanDataAll, client
 import pandas as pd
 from Options import getConfigurations
 
+#Unit 10 : HashTable
+#Tests located in UnitTest.py
+
+#HashTableNode:  Class that is used by the HashTable class and inherits from the Node class
 class HashTableNode(Node):
     def __init__(self, dataFrame, row):
         super().__init__(dataFrame, row)
@@ -15,7 +19,8 @@ class node:
     def __init__(self, data, next = None):
         self.data = data
         self.next = next
-       
+
+#--------------------------------------------------------------------------------------------------       
 #dictionary entry
 class Entry(object):
 
@@ -38,6 +43,7 @@ class Entry(object):
         if type(self) != type(other): return False
         return self.key <= other.key
 
+#--------------------------------------------------------------------------------------------------
 #HashTable using keys in a dictionary 
 class HashTable:
     
