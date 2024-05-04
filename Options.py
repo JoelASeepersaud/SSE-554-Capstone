@@ -17,6 +17,7 @@ def create_options(parent, width, height):
     w = width
     h = height
     
+    #option fields
     top_frame = tk.Frame(master = parent, width = w, height = h*.02)
     top_frame.configure(bg = win_color)
     top_frame.pack()

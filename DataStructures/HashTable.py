@@ -107,7 +107,6 @@ class HashTable:
             if temp[i]!=None:
                 self.__setitem__(temp[i].data.key, temp[i].data.value)
     
-    
     def __getitem__(self, key):
         if not key in self: return None
         return self.foundNode.data.value
