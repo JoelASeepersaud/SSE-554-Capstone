@@ -11,34 +11,41 @@ from DataStructures import LinkedList
 
 client = RESTClient(getPolygonAPIkey())
 
+#LinkedList for forward/backward buttons
 track_action = LinkedList.DoubleLinkedList()
 action_index = -1
 
+#search stock
 def search_stock():
     search=entry_search.get()
     addMarket(search)
 
+#signin/signup, not implemented
 def profile():
     Name= ""
 
+#go to previous page
 def back():
     global action_index
     if action_index != 0:
         action_index -= 1
         track_action.getItem(action_index)()
     
+#go to next page
 def forward():
     global action_index
     if action_index+2 <= track_action.size:
         action_index += 1
         track_action.getItem(action_index)()
-        
+      
+#load Market and add to LinkedList
 def addMarket(search = None):
     global action_index
     action_index += 1
     track_action.insert(Market, action_index)
     Market(search)
-    
+
+#load Market    
 def Market(search = None):
     for child in body_win.winfo_children():
         child.destroy()
@@ -47,13 +54,15 @@ def Market(search = None):
     Watchlist_button.configure(bg = top_bar_color)
     Options_Button.configure(bg = top_bar_color)
     Correlations_Button.configure(bg = top_bar_color)
-    
+
+#load Watchlist and add to LinkedList
 def addWatchlist():
     global action_index
     action_index += 1
     track_action.insert(Watchlist, action_index)
     Watchlist()
-    
+
+#load Watchlist
 def Watchlist():
     for child in body_win.winfo_children():
         child.destroy()
@@ -62,14 +71,15 @@ def Watchlist():
     Watchlist_button.configure(bg = win_color)
     Options_Button.configure(bg = top_bar_color)
     Correlations_Button.configure(bg = top_bar_color)
-
+    
+#load Options and add to LinkedList
 def addOptions():
     global action_index
     action_index += 1
     track_action.insert(Options, action_index)
     Options()
     
-    
+#load Options 
 def Options():
     for child in body_win.winfo_children():
         child.destroy()
@@ -79,12 +89,14 @@ def Options():
     Options_Button.configure(bg = win_color)
     Correlations_Button.configure(bg = top_bar_color)
 
+#load Correlations and add to LinkedList
 def addCorrelations():
     global action_index
     action_index += 1
     track_action.insert(Correlations, action_index)
     Correlations()
 
+#load Correlations
 def Correlations():
     for child in body_win.winfo_children():
         child.destroy()
@@ -100,6 +112,7 @@ buttonOn_color='grey30'
 
 display = "Sign In / Sign Up"
 
+#create window
 window = ttk.Window()
 window.configure(background = 'grey28')
 window.title('Stock Market App')
@@ -162,6 +175,5 @@ body_win.pack()
 
 #display market in body on startup
 addMarket()
-#create_market(body_win, w, h)
 
 window.mainloop()

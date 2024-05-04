@@ -40,7 +40,7 @@ def create_correlations(parent, width, height):
     Stock2_text.configure(bg = win_color, fg = 'white')
     Stock2_text.grid(row = 0, column = 4)
     
-    changepercent_text = tk.Label(master = info_frame, text = 'Difference in % Change', font = "Calibri 15")
+    changepercent_text = tk.Label(master = info_frame, text = 'Difference in\n% Change', font = "Calibri 15")
     changepercent_text.configure(bg = win_color, fg = 'white')
     changepercent_text.grid(row = 0, column = 7, sticky = 'e')
     
@@ -122,7 +122,6 @@ class ListFrame(tk.Frame):
         Changepercent_text.configure(bg = win_color, fg = 'white')
         Changepercent_text.grid(row = 0, column = 7, sticky = 'e')
 
-        
         return frame
     
     def create_line(self):
